@@ -1,6 +1,3 @@
-####################################
-##### Cloud Front Distribution #####
-####################################
 module "cdn" {
   source                        = "terraform-aws-modules/cloudfront/aws"
   comment                       = "Distribution for static website"

@@ -1,7 +1,3 @@
-########################################################
-##### S3 bucket policy for frontend static website #####
-########################################################
-
 module "s3" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.5.0"
