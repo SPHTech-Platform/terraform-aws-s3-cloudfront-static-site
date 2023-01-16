@@ -1,5 +1,7 @@
 module "cdn" {
-  source                        = "terraform-aws-modules/cloudfront/aws"
+  source  = "terraform-aws-modules/cloudfront/aws"
+  version = "~> 3.1.0"
+
   comment                       = "Distribution for static website"
   is_ipv6_enabled               = true
   price_class                   = var.price_class
