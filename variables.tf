@@ -59,7 +59,7 @@ variable "lifecycle_rule" {
 }
 
 variable "cors_rule" {
-  description = "List of maps containing rules for Cross-Origin Resource Sharing."
+  description = "List of maps containing rules for Cross-Origin Resource Sharing for S3 bucket."
   type        = any
   default = {
     cors_rule = {
@@ -135,4 +135,66 @@ variable "default_cache_behavior" {
   description = "The default cache behavior for this distribution"
   type        = any
   default     = {}
+}
+
+variable "default_root_object" {
+  description = "Default root object"
+  type        = string
+  default     = "index.html"
+}
+
+variable "custom_error_response" {
+  description = "Custom error response settings, if any"
+  type        = list(any)
+  default = [
+    {
+      error_code         = 404
+      response_code      = 404
+      response_page_path = "/errors/404.html"
+    },
+    {
+      error_code         = 403
+      response_code      = 403
+      response_page_path = "/errors/403.html"
+    },
+  ]
+}
+
+variable "geo_restriction" {
+  description = "Geo-restriction settings, if any"
+  type        = any
+  default     = {}
+}
+
+variable "certificate_settings" {
+  description = "CloudFront certificate settings"
+  type        = any
+  default = {
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
+  }
+}
+
+variable "domains" {
+  description = "Domains to update DNS records for amd create ACM certificates"
+  type = map(object({ # Key is arbitrary and not used
+    dns_zone_id = string
+    domain      = string
+
+    include_in_acm    = optional(bool, false)
+    create_acm_record = optional(bool, true)
+  }))
+  default = {}
+}
+
+variable "acm_key_algorithm" {
+  description = "ACM certificate algorithm"
+  type        = string
+  default     = "EC_prime256v1"
+}
+
+variable "web_acl_id" {
+  description = "A unique identifier that specifies the AWS WAF web ACL, if any, to associate with this distribution. To specify a web ACL created using the latest version of AWS WAF (WAFv2), use the ACL ARN, for example aws_wafv2_web_acl.example.arn. To specify a web ACL created using AWS WAF Classic, use the ACL ID, for example aws_waf_web_acl.example.id. The WAF Web ACL must exist in the WAF Global (CloudFront) region and the credentials configuring this argument must have waf:GetWebACL permissions assigned."
+  type        = string
+  default     = ""
 }

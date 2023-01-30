@@ -17,7 +17,6 @@ module "s3" {
   logging    = var.logging
 
   website = var.website
-
 }
 
 
