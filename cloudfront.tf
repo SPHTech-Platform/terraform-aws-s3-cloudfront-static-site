@@ -60,6 +60,8 @@ module "cdn" {
     },
     var.certificate_settings,
   ) : {}
+
+  web_acl_id = var.web_acl_id
 }
 
 resource "aws_cloudfront_function" "viewer_request" {
