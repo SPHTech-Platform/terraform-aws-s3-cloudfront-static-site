@@ -2,6 +2,8 @@ module "cdn" {
   source  = "terraform-aws-modules/cloudfront/aws"
   version = "~> 3.1.0"
 
+  aliases = [for domain in var.domains : domain.domain]
+
   comment                       = "Distribution for static website"
   is_ipv6_enabled               = true
   price_class                   = var.price_class
@@ -34,6 +36,10 @@ module "cdn" {
     compress        = true
     query_string    = false
 
+    response_headers_policy_id = data.aws_cloudfront_response_headers_policy.this.id
+    origin_request_policy_id   = data.aws_cloudfront_origin_request_policy.this.id
+    cache_policy_id            = data.aws_cloudfront_cache_policy.this.id
+
     function_association = {
       viewer-request = {
         function_arn = aws_cloudfront_function.viewer_request.arn
@@ -42,21 +48,16 @@ module "cdn" {
   }, var.default_cache_behavior)
 
   ordered_cache_behavior = var.ordered_cache_behavior
+  default_root_object    = var.default_root_object
+  custom_error_response  = var.custom_error_response
+  geo_restriction        = var.geo_restriction
 
-  default_root_object = "index.html"
-
-  custom_error_response = [
+  viewer_certificate = length(local.acm_domains) > 0 ? merge(
     {
-      error_code         = 404
-      response_code      = 404
-      response_page_path = "/errors/404.html"
+      acm_certificate_arn = module.acm.acm_certificate_arn
     },
-    {
-      error_code         = 403
-      response_code      = 403
-      response_page_path = "/errors/403.html"
-    }
-  ]
+    var.certificate_settings,
+  ) : {}
 }
 
 resource "aws_cloudfront_function" "viewer_request" {

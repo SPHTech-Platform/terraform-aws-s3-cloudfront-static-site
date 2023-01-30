@@ -59,7 +59,7 @@ variable "lifecycle_rule" {
 }
 
 variable "cors_rule" {
-  description = "List of maps containing rules for Cross-Origin Resource Sharing."
+  description = "List of maps containing rules for Cross-Origin Resource Sharing for S3 bucket."
   type        = any
   default = {
     cors_rule = {
@@ -135,4 +135,49 @@ variable "default_cache_behavior" {
   description = "The default cache behavior for this distribution"
   type        = any
   default     = {}
+}
+
+variable "default_root_object" {
+  description = "Default root object"
+  type        = string
+  default     = "index.html"
+}
+
+variable "custom_error_response" {
+  description = "Custom error response settings, if any"
+  type        = list(any)
+  default     = []
+}
+
+variable "geo_restriction" {
+  description = "Geo-restriction settings, if any"
+  type        = any
+  default     = {}
+}
+
+variable "certificate_settings" {
+  description = "CloudFront certificate settings"
+  type        = any
+  default = {
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
+  }
+}
+
+variable "domains" {
+  description = "Domains to update DNS records for amd create ACM certificates"
+  type = map(object({ # Key is arbitrary and not used
+    dns_zone_id = string
+    domain      = string
+
+    include_in_acm    = optional(bool, false)
+    create_acm_record = optional(bool, true)
+  }))
+  default = {}
+}
+
+variable "acm_key_algorithm" {
+  description = "ACM certificate algorithm"
+  type        = string
+  default     = "EC_prime256v1"
 }
