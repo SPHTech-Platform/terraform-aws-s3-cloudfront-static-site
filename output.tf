@@ -37,3 +37,8 @@ output "cloudfront_origin_access_identity_iam_arns" {
   description = "The IAM arns of the origin access identities created"
   value       = module.cdn.cloudfront_origin_access_identity_iam_arns
 }
+
+output "cloudfront_distribution_hosted_zone_id" {
+  description = "Route53 Zone ID for the Cloudfront Distribution"
+  value       = module.cdn.cloudfront_distribution_hosted_zone_id
+}
