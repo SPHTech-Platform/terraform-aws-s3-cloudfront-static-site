@@ -28,7 +28,7 @@ resource "aws_route53_record" "acm" {
   zone_id = each.value.dns_zone_id
   name    = local.domain_validation_records[each.value.domain]["resource_record_name"]
   type    = local.domain_validation_records[each.value.domain]["resource_record_type"]
-  records = local.domain_validation_records[each.value.domain]["resource_record_value"]
+  records = [local.domain_validation_records[each.value.domain]["resource_record_value"]]
   ttl     = 300
 
   allow_overwrite = true
