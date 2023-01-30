@@ -16,9 +16,9 @@ resource "aws_route53_record" "acm" {
   for_each = { for k, domain in var.domains : k => domain if domain.include_in_acm && domain.create_acm_record }
 
   zone_id = each.value.dns_zone_id
-  name    = module.acm.validation_domains[each.value.domain]["resource_record_name"]
-  type    = module.acm.validation_domains[each.value.domain]["resource_record_type"]
-  records = module.acm.validation_domains[each.value.domain]["resource_record_value"]
+  name    = module.acm.acm_certificate_domain_validation_options[each.value.domain]["resource_record_name"]
+  type    = module.acm.acm_certificate_domain_validation_options[each.value.domain]["resource_record_type"]
+  records = module.acm.acm_certificate_domain_validation_options[each.value.domain]["resource_record_value"]
   ttl     = 300
 
   allow_overwrite = true

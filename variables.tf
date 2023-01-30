@@ -146,7 +146,18 @@ variable "default_root_object" {
 variable "custom_error_response" {
   description = "Custom error response settings, if any"
   type        = list(any)
-  default     = []
+  default = [
+    {
+      error_code         = 404
+      response_code      = 404
+      response_page_path = "/errors/404.html"
+    },
+    {
+      error_code         = 403
+      response_code      = 403
+      response_page_path = "/errors/403.html"
+    },
+  ]
 }
 
 variable "geo_restriction" {
