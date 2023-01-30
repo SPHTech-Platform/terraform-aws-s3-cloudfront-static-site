@@ -36,6 +36,8 @@ module "cdn" {
     compress        = true
     query_string    = false
 
+    use_forwarded_values = false
+
     response_headers_policy_id = data.aws_cloudfront_response_headers_policy.this.id
     origin_request_policy_id   = data.aws_cloudfront_origin_request_policy.this.id
     cache_policy_id            = data.aws_cloudfront_cache_policy.this.id
