@@ -198,3 +198,9 @@ variable "web_acl_id" {
   type        = string
   default     = ""
 }
+
+variable "default_index_function_name" {
+  description = "Name of the CloudFront Function to create for index page redirection"
+  type        = string
+  default     = "default_viewer_request"
+}

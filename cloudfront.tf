@@ -65,8 +65,8 @@ module "cdn" {
 }
 
 resource "aws_cloudfront_function" "viewer_request" {
-  name    = "default_viewer_request"
+  name    = var.default_index_function_name
   runtime = "cloudfront-js-1.0"
   publish = true
-  code    = file("${path.module}/templates/viewer-request-default.js")
+  code    = templatefile("${path.module}/templates/viewer-request-default.js", { default_root_object = var.default_root_object })
 }
