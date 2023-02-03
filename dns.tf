@@ -1,5 +1,5 @@
 resource "aws_route53_record" "domain" {
-  for_each = var.domains
+  for_each = { for k, domain in var.domains : k => domain if domain.create_alias_record }
 
   zone_id = each.value.dns_zone_id
   name    = each.value.domain
