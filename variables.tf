@@ -178,11 +178,11 @@ variable "certificate_settings" {
 variable "domains" {
   description = "Domains to update DNS records for amd create ACM certificates"
   type = map(object({ # Key is arbitrary and not used
-    dns_zone_id = string
-    domain      = string
-
-    include_in_acm    = optional(bool, false)
-    create_acm_record = optional(bool, true)
+    dns_zone_id         = optional(string)
+    domain              = string
+    create_alias_record = optional(bool, true)
+    include_in_acm      = optional(bool, false)
+    create_acm_record   = optional(bool, true)
   }))
   default = {}
 }
