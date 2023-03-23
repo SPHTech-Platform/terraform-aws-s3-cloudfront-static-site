@@ -131,6 +131,12 @@ variable "origin" {
   default     = {}
 }
 
+variable "origin_path" {
+  description = "Origin path to a specific directory in s3"
+  type        = string
+  default     = ""
+}
+
 variable "default_cache_behavior" {
   description = "The default cache behavior for this distribution"
   type        = any
