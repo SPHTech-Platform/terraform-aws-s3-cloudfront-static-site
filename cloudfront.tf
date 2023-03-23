@@ -17,6 +17,7 @@ module "cdn" {
   origin = merge({
     origin_access_identity = {
       domain_name = module.s3.s3_bucket_bucket_regional_domain_name
+      origin_path = var.origin_path
       s3_origin_config = {
         origin_access_identity = "origin_access_identity"
         # key in `origin_access_identities`
