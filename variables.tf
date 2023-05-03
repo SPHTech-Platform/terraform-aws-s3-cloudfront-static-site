@@ -182,7 +182,7 @@ variable "certificate_settings" {
 }
 
 variable "domains" {
-  description = "Domains to update DNS records for amd create ACM certificates"
+  description = "Domains or FQDNs to update DNS records and create ACM certificates"
   type = map(object({ # Key is arbitrary and not used
     dns_zone_id         = optional(string)
     domain              = string
