@@ -7,7 +7,7 @@ variable "bucket_name" {
 variable "acl" {
   description = "Private or Public ACL"
   type        = string
-  default     = "private"
+  default     = null
 }
 
 variable "attach_policy" {
