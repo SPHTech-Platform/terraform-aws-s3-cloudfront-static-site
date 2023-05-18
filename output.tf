@@ -42,3 +42,8 @@ output "cloudfront_distribution_hosted_zone_id" {
   description = "Route53 Zone ID for the Cloudfront Distribution"
   value       = module.cdn.cloudfront_distribution_hosted_zone_id
 }
+
+output "add_to_dns_for_acm_validation" {
+  description = "DNS records to add for ACM validation"
+  value       = module.acm.acm_certificate_domain_validation_options
+}
