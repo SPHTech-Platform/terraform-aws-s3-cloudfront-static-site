@@ -53,7 +53,7 @@
 | <a name="input_default_cache_behavior"></a> [default\_cache\_behavior](#input\_default\_cache\_behavior) | The default cache behavior for this distribution | `any` | `{}` | no |
 | <a name="input_default_index_function_name"></a> [default\_index\_function\_name](#input\_default\_index\_function\_name) | Name of the CloudFront Function to create for index page redirection | `string` | `"default_viewer_request"` | no |
 | <a name="input_default_root_object"></a> [default\_root\_object](#input\_default\_root\_object) | Default root object | `string` | `"index.html"` | no |
-| <a name="input_domains"></a> [domains](#input\_domains) | Domains to update DNS records for amd create ACM certificates | <pre>map(object({ # Key is arbitrary and not used<br>    dns_zone_id         = optional(string)<br>    domain              = string<br>    create_alias_record = optional(bool, true)<br>    include_in_acm      = optional(bool, false)<br>    create_acm_record   = optional(bool, true)<br>  }))</pre> | `{}` | no |
+| <a name="input_domains"></a> [domains](#input\_domains) | Domains or FQDNs to update DNS records and create ACM certificates | <pre>map(object({ # Key is arbitrary and not used<br>    dns_zone_id         = optional(string)<br>    domain              = string<br>    create_alias_record = optional(bool, true)<br>    include_in_acm      = optional(bool, false)<br>    create_acm_record   = optional(bool, true)<br>  }))</pre> | `{}` | no |
 | <a name="input_geo_restriction"></a> [geo\_restriction](#input\_geo\_restriction) | Geo-restriction settings, if any | `any` | `{}` | no |
 | <a name="input_ignore_public_acls"></a> [ignore\_public\_acls](#input\_ignore\_public\_acls) | Whether Amazon S3 should ignore public ACLs for this bucket. | `bool` | `true` | no |
 | <a name="input_lifecycle_rule"></a> [lifecycle\_rule](#input\_lifecycle\_rule) | List of maps containing configuration of object lifecycle management. | `any` | `[]` | no |
@@ -75,6 +75,7 @@
 
 | Name | Description |
 |------|-------------|
+| <a name="output_add_to_dns_for_acm_validation"></a> [add\_to\_dns\_for\_acm\_validation](#output\_add\_to\_dns\_for\_acm\_validation) | DNS records to add for ACM validation |
 | <a name="output_cloudfront_distribution_arn"></a> [cloudfront\_distribution\_arn](#output\_cloudfront\_distribution\_arn) | The ARN (Amazon Resource Name) for the distribution. |
 | <a name="output_cloudfront_distribution_domain_name"></a> [cloudfront\_distribution\_domain\_name](#output\_cloudfront\_distribution\_domain\_name) | The domain name corresponding to the distribution. |
 | <a name="output_cloudfront_distribution_hosted_zone_id"></a> [cloudfront\_distribution\_hosted\_zone\_id](#output\_cloudfront\_distribution\_hosted\_zone\_id) | Route53 Zone ID for the Cloudfront Distribution |
