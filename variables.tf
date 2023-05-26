@@ -210,3 +210,9 @@ variable "default_index_function_name" {
   type        = string
   default     = "default_viewer_request"
 }
+
+variable "override_default_index_function_code" {
+  description = "Function code to override default index viewer request function. Useful when you need to add more functianlity in the viewer request function."
+  type        = string
+  default     = ""
+}
