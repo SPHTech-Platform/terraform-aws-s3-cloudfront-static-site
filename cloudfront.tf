@@ -14,7 +14,7 @@ module "cdn" {
     origin_access_identity = module.s3.s3_bucket_id
   }, var.origin_access_identities)
 
-  logging_config = var.logging_config
+  logging_config = var.cloudfront_logging_config
 
   origin = merge({
     origin_access_identity = {

@@ -119,7 +119,7 @@ variable "price_class" {
   default     = "PriceClass_All"
 }
 
-variable "logging_config" {
+variable "cloudfront_logging_config" {
   description = "The logging configuration that controls how logs are written to your distribution"
   type        = map(string)
   default     = {}
