@@ -58,6 +58,7 @@
 | <a name="input_ignore_public_acls"></a> [ignore\_public\_acls](#input\_ignore\_public\_acls) | Whether Amazon S3 should ignore public ACLs for this bucket. | `bool` | `true` | no |
 | <a name="input_lifecycle_rule"></a> [lifecycle\_rule](#input\_lifecycle\_rule) | List of maps containing configuration of object lifecycle management. | `any` | `[]` | no |
 | <a name="input_logging"></a> [logging](#input\_logging) | Map containing access bucket logging configuration. | `map(string)` | `{}` | no |
+| <a name="input_logging_config"></a> [logging\_config](#input\_logging\_config) | Map containing cloudfront access logging configuration. | `map(string)` | `{}` | no |
 | <a name="input_ordered_cache_behavior"></a> [ordered\_cache\_behavior](#input\_ordered\_cache\_behavior) | An ordered list of cache behaviors resource for this distribution. List from top to bottom in order of precedence. The topmost cache behavior will have precedence 0. | `any` | `[]` | no |
 | <a name="input_origin"></a> [origin](#input\_origin) | One or more origins for this distribution (multiples allowed). | `any` | `{}` | no |
 | <a name="input_origin_access_identities"></a> [origin\_access\_identities](#input\_origin\_access\_identities) | Map of CloudFront origin access identities (value as a comment) | `map(string)` | `{}` | no |
@@ -65,7 +66,6 @@
 | <a name="input_override_default_index_function_code"></a> [override\_default\_index\_function\_code](#input\_override\_default\_index\_function\_code) | Function code to override default index viewer request function. Useful when you need to add more functianlity in the viewer request function. | `string` | `""` | no |
 | <a name="input_policy"></a> [policy](#input\_policy) | A valid bucket policy JSON document (Optional) | `string` | `""` | no |
 | <a name="input_price_class"></a> [price\_class](#input\_price\_class) | The price class for this distribution. One of PriceClass\_All, PriceClass\_200, PriceClass\_100 | `string` | `"PriceClass_All"` | no |
-| <a name="input_logging_config"></a> [logging\_config](#input\_logging\_config) | Map containing cloudfront access logging configuration. | `map(string)` | `{}` | no |
 | <a name="input_restrict_public_buckets"></a> [restrict\_public\_buckets](#input\_restrict\_public\_buckets) | Whether Amazon S3 should restrict public bucket policies for this bucket. | `bool` | `true` | no |
 | <a name="input_server_side_encryption_configuration"></a> [server\_side\_encryption\_configuration](#input\_server\_side\_encryption\_configuration) | Map containing server-side encryption configuration. | `any` | `{}` | no |
 | <a name="input_versioning"></a> [versioning](#input\_versioning) | Map containing versioning configuration. | `map(string)` | <pre>{<br>  "enabled": true<br>}</pre> | no |
