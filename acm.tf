@@ -19,5 +19,5 @@ module "acm" {
   key_algorithm = var.acm_key_algorithm
 
   domain_name               = local.acm_domains[0].domain
-  subject_alternative_names = length(local.acm_domains) > 0 ? concat([format("*.%s", join(".", slice(local.domain_parts, 1, length(local.domain_parts))))]) : []
+  subject_alternative_names = length(local.acm_domains) > 0 ? concat([format("*.%s", join(".", slice(local.domain_parts, 0, length(local.domain_parts))))]) : []
 }
