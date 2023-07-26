@@ -19,7 +19,7 @@
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_acm"></a> [acm](#module\_acm) | terraform-aws-modules/acm/aws | ~> 4.3.0 |
-| <a name="module_cdn"></a> [cdn](#module\_cdn) | terraform-aws-modules/cloudfront/aws | ~> 3.1.0 |
+| <a name="module_cdn"></a> [cdn](#module\_cdn) | terraform-aws-modules/cloudfront/aws | ~> 3.2.1 |
 | <a name="module_s3"></a> [s3](#module\_s3) | terraform-aws-modules/s3-bucket/aws | ~> 3.5.0 |
 
 ## Resources
@@ -48,7 +48,9 @@
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | bucket name | `string` | `""` | no |
 | <a name="input_certificate_settings"></a> [certificate\_settings](#input\_certificate\_settings) | CloudFront certificate settings | `any` | <pre>{<br>  "minimum_protocol_version": "TLSv1.2_2021",<br>  "ssl_support_method": "sni-only"<br>}</pre> | no |
 | <a name="input_cors_rule"></a> [cors\_rule](#input\_cors\_rule) | List of maps containing rules for Cross-Origin Resource Sharing for S3 bucket. | `any` | <pre>{<br>  "cors_rule": {<br>    "allowed_headers": [<br>      "*"<br>    ],<br>    "allowed_methods": [<br>      "PUT",<br>      "POST",<br>      "GET",<br>      "DELETE"<br>    ],<br>    "allowed_origins": [<br>      "*"<br>    ],<br>    "expose_headers": [<br>      "ETag"<br>    ],<br>    "max_age_seconds": 3000<br>  }<br>}</pre> | no |
-| <a name="input_create_origin_access_identity"></a> [create\_origin\_access\_identity](#input\_create\_origin\_access\_identity) | Whether Amazon S3 should restrict public bucket policies for this bucket. | `bool` | `true` | no |
+| <a name="input_create_certificate"></a> [create\_certificate](#input\_create\_certificate) | Create ACM certificate | `bool` | `true` | no |
+| <a name="input_create_origin_access_control"></a> [create\_origin\_access\_control](#input\_create\_origin\_access\_control) | Controls if CloudFront origin access control should be created | `bool` | `true` | no |
+| <a name="input_create_origin_access_identity"></a> [create\_origin\_access\_identity](#input\_create\_origin\_access\_identity) | Whether Amazon S3 should restrict public bucket policies for this bucket. | `bool` | `false` | no |
 | <a name="input_custom_error_response"></a> [custom\_error\_response](#input\_custom\_error\_response) | Custom error response settings, if any | `list(any)` | <pre>[<br>  {<br>    "error_code": 404,<br>    "response_code": 404,<br>    "response_page_path": "/errors/404.html"<br>  },<br>  {<br>    "error_code": 403,<br>    "response_code": 403,<br>    "response_page_path": "/errors/403.html"<br>  }<br>]</pre> | no |
 | <a name="input_default_cache_behavior"></a> [default\_cache\_behavior](#input\_default\_cache\_behavior) | The default cache behavior for this distribution | `any` | `{}` | no |
 | <a name="input_default_index_function_name"></a> [default\_index\_function\_name](#input\_default\_index\_function\_name) | Name of the CloudFront Function to create for index page redirection | `string` | `"default_viewer_request"` | no |
@@ -60,6 +62,7 @@
 | <a name="input_logging"></a> [logging](#input\_logging) | Map containing access bucket logging configuration. | `map(string)` | `{}` | no |
 | <a name="input_ordered_cache_behavior"></a> [ordered\_cache\_behavior](#input\_ordered\_cache\_behavior) | An ordered list of cache behaviors resource for this distribution. List from top to bottom in order of precedence. The topmost cache behavior will have precedence 0. | `any` | `[]` | no |
 | <a name="input_origin"></a> [origin](#input\_origin) | One or more origins for this distribution (multiples allowed). | `any` | `{}` | no |
+| <a name="input_origin_access_control"></a> [origin\_access\_control](#input\_origin\_access\_control) | Map of CloudFront origin access control | <pre>map(object({<br>    description      = string<br>    origin_type      = string<br>    signing_behavior = string<br>    signing_protocol = string<br>  }))</pre> | `{}` | no |
 | <a name="input_origin_access_identities"></a> [origin\_access\_identities](#input\_origin\_access\_identities) | Map of CloudFront origin access identities (value as a comment) | `map(string)` | `{}` | no |
 | <a name="input_origin_path"></a> [origin\_path](#input\_origin\_path) | Origin path to a specific directory in s3 | `string` | `""` | no |
 | <a name="input_override_default_index_function_code"></a> [override\_default\_index\_function\_code](#input\_override\_default\_index\_function\_code) | Function code to override default index viewer request function. Useful when you need to add more functianlity in the viewer request function. | `string` | `""` | no |
