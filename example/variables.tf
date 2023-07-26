@@ -134,4 +134,3 @@ variable "default_cache_behavior" {
   type        = any
   default     = {}
 }
-

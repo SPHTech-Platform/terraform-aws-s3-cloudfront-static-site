@@ -2,7 +2,7 @@
 ## Test for the static site terraform module
 #########
 module "s3_test_static" {
-  source = "../../"
+  source = "../"
   providers = {
     aws.us-east-1 = aws.us-east-1
   }
@@ -36,4 +36,3 @@ module "s3_test_static" {
     },
   ]
 }
-
