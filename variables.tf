@@ -104,7 +104,7 @@ variable "wait_for_deployment" {
 variable "create_origin_access_identity" {
   description = "Whether Amazon S3 should restrict public bucket policies for this bucket."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "ordered_cache_behavior" {
@@ -123,6 +123,23 @@ variable "origin_access_identities" {
   description = "Map of CloudFront origin access identities (value as a comment)"
   type        = map(string)
   default     = {}
+}
+
+variable "create_origin_access_control" {
+  description = "Controls if CloudFront origin access control should be created"
+  type        = bool
+  default     = true
+}
+
+variable "origin_access_control" {
+  description = "Map of CloudFront origin access control"
+  type = map(object({
+    description      = string
+    origin_type      = string
+    signing_behavior = string
+    signing_protocol = string
+  }))
+  default = {}
 }
 
 variable "origin" {
@@ -179,6 +196,12 @@ variable "certificate_settings" {
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
+}
+
+variable "create_certificate" {
+  description = "Create ACM certificate"
+  type        = bool
+  default     = true
 }
 
 variable "domains" {

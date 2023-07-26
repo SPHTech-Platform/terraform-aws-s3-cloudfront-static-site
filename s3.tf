@@ -1,4 +1,5 @@
 module "s3" {
+  #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "~> 3.5.0"
 
