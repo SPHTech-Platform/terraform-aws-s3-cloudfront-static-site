@@ -30,7 +30,7 @@ module "cdn" {
       origin_access_control = "s3" # key in `origin_access_control`
       origin_shield = {
         enabled              = true
-        origin_shield_region = "ap-southeast-1"
+        origin_shield_region = data.aws_region.current.name
       }
     }
   }, var.origin)
