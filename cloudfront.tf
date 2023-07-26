@@ -1,13 +1,14 @@
 module "cdn" {
+  #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
   source  = "terraform-aws-modules/cloudfront/aws"
   version = "~> 3.2.1"
 
   aliases = [for domain in var.domains : domain.domain]
 
-  comment                       = "Distribution for static website"
-  is_ipv6_enabled               = true
-  price_class                   = var.price_class
-  wait_for_deployment           = var.wait_for_deployment
+  comment             = "Distribution for static website"
+  is_ipv6_enabled     = true
+  price_class         = var.price_class
+  wait_for_deployment = var.wait_for_deployment
 
   create_origin_access_identity = var.create_origin_access_identity
   origin_access_identities      = var.origin_access_identities

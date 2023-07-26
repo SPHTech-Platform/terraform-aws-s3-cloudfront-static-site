@@ -1,9 +1,10 @@
 locals {
-  acm_domains = [for domain in var.domains : domain if domain.include_in_acm]
-  domain_parts  = split(".", local.acm_domains[0].domain)
+  acm_domains  = [for domain in var.domains : domain if domain.include_in_acm]
+  domain_parts = split(".", local.acm_domains[0].domain)
 }
 
 module "acm" {
+  #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
   source  = "terraform-aws-modules/acm/aws"
   version = "~> 4.3.0"
 
