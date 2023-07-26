@@ -1,6 +1,6 @@
 module "cdn" {
   source  = "terraform-aws-modules/cloudfront/aws"
-  version = "~> 3.1.0"
+  version = "~> 3.2.1"
 
   aliases = [for domain in var.domains : domain.domain]
 
@@ -8,20 +8,30 @@ module "cdn" {
   is_ipv6_enabled               = true
   price_class                   = var.price_class
   wait_for_deployment           = var.wait_for_deployment
-  create_origin_access_identity = var.create_origin_access_identity
 
-  origin_access_identities = merge({
-    origin_access_identity = module.s3.s3_bucket_id
-  }, var.origin_access_identities)
+  create_origin_access_identity = var.create_origin_access_identity
+  origin_access_identities      = var.origin_access_identities
+
+  create_origin_access_control = var.create_origin_access_control
+  origin_access_control = merge({
+    s3 = {
+      description      = "Cloudfront origin access control",
+      origin_type      = "s3",
+      signing_behavior = "always",
+      signing_protocol = "sigv4"
+    }
+  }, var.origin_access_control)
 
   origin = merge({
-    origin_access_identity = {
-      domain_name = module.s3.s3_bucket_bucket_regional_domain_name
-      origin_path = var.origin_path
-      s3_origin_config = {
-        origin_access_identity = "origin_access_identity"
-        # key in `origin_access_identities`
-    } }
+    origin_access_control = {
+      domain_name           = module.s3.s3_bucket_bucket_regional_domain_name
+      origin_path           = ""
+      origin_access_control = "s3" # key in `origin_access_control`
+      origin_shield = {
+        enabled              = true
+        origin_shield_region = "ap-southeast-1"
+      }
+    }
   }, var.origin)
 
   default_cache_behavior = merge({
