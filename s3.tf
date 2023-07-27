@@ -23,9 +23,9 @@ module "s3" {
 
 
 resource "aws_s3_bucket_policy" "docs" {
-  count   = module.s3.s3_bucket_id ? 1 : 0
-  bucket  = module.s3.s3_bucket_id
-  policy  = data.aws_iam_policy_document.s3_policy_merge.json
+  count  = module.s3.s3_bucket_id ? 1 : 0
+  bucket = module.s3.s3_bucket_id
+  policy = data.aws_iam_policy_document.s3_policy_merge.json
 
   depends_on = [
     module.cdn.cloudfront_distribution_id
