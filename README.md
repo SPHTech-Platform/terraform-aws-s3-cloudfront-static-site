@@ -35,6 +35,7 @@
 | [aws_cloudfront_response_headers_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/cloudfront_response_headers_policy) | data source |
 | [aws_iam_policy_document.s3_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.s3_policy_merge](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
+| [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
 
 ## Inputs
 
@@ -48,6 +49,7 @@
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | bucket name | `string` | `""` | no |
 | <a name="input_certificate_settings"></a> [certificate\_settings](#input\_certificate\_settings) | CloudFront certificate settings | `any` | <pre>{<br>  "minimum_protocol_version": "TLSv1.2_2021",<br>  "ssl_support_method": "sni-only"<br>}</pre> | no |
 | <a name="input_cors_rule"></a> [cors\_rule](#input\_cors\_rule) | List of maps containing rules for Cross-Origin Resource Sharing for S3 bucket. | `any` | <pre>{<br>  "cors_rule": {<br>    "allowed_headers": [<br>      "*"<br>    ],<br>    "allowed_methods": [<br>      "PUT",<br>      "POST",<br>      "GET",<br>      "DELETE"<br>    ],<br>    "allowed_origins": [<br>      "*"<br>    ],<br>    "expose_headers": [<br>      "ETag"<br>    ],<br>    "max_age_seconds": 3000<br>  }<br>}</pre> | no |
+| <a name="input_create_bucket"></a> [create\_bucket](#input\_create\_bucket) | Whether to create S3 bucket, default to true | `bool` | `true` | no |
 | <a name="input_create_certificate"></a> [create\_certificate](#input\_create\_certificate) | Create ACM certificate | `bool` | `true` | no |
 | <a name="input_create_origin_access_control"></a> [create\_origin\_access\_control](#input\_create\_origin\_access\_control) | Controls if CloudFront origin access control should be created | `bool` | `true` | no |
 | <a name="input_create_origin_access_identity"></a> [create\_origin\_access\_identity](#input\_create\_origin\_access\_identity) | Whether Amazon S3 should restrict public bucket policies for this bucket. | `bool` | `false` | no |

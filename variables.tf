@@ -1,3 +1,9 @@
+variable "create_bucket" {
+  description = "Whether to create S3 bucket, default to true"
+  type        = bool
+  default     = true
+}
+
 variable "bucket_name" {
   description = "bucket name"
   type        = string
