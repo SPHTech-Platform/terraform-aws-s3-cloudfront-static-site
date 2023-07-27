@@ -36,7 +36,7 @@ module "cdn" {
   }, var.origin)
 
   default_cache_behavior = merge({
-    target_origin_id       = "origin_access_identity" # key in `origin` above
+    target_origin_id       = "origin_access_control" # key in `OAC` above
     viewer_protocol_policy = "redirect-to-https"
 
     default_ttl = 360
