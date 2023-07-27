@@ -23,7 +23,7 @@ module "s3" {
 
 
 resource "aws_s3_bucket_policy" "docs" {
-  count  = module.s3.s3_bucket_id ? 1 : 0
+  count  = length(module.s3.s3_bucket_id) > 0 ? 1 : 0
   bucket = module.s3.s3_bucket_id
   policy = data.aws_iam_policy_document.s3_policy_merge.json
 
