@@ -3,7 +3,8 @@ module "cdn" {
   source  = "terraform-aws-modules/cloudfront/aws"
   version = "~> 3.2.1"
 
-  aliases = [for domain in var.domains : domain.domain]
+  #aliases = [for domain in var.domains : domain.domain]
+  aliases = length(var.domains) > 0 ? [for domain in var.domains : domain.domain] : []
 
   comment             = "Distribution for static website"
   is_ipv6_enabled     = true
