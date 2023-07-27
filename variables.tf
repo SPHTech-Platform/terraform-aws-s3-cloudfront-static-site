@@ -1,5 +1,5 @@
 variable "create_bucket" {
-  description = "bucket name"
+  description = "Whether to create S3 bucket, default to true"
   type        = bool
   default     = true
 }
