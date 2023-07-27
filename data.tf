@@ -2,7 +2,7 @@ data "aws_region" "current" {}
 
 data "aws_iam_policy_document" "s3_policy" {
   statement {
-    actions   = ["s3:GetObject"]
+    actions = ["s3:GetObject"]
     resources = [
       "${module.s3.s3_bucket_arn}",
       "${module.s3.s3_bucket_arn}/*",
