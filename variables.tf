@@ -160,6 +160,12 @@ variable "origin_path" {
   default     = ""
 }
 
+variable "additional_aliases" {
+  description = "cloudfront additional aliases"
+  type        = list(string)
+  default     = []
+}
+
 variable "default_cache_behavior" {
   description = "The default cache behavior for this distribution"
   type        = any
