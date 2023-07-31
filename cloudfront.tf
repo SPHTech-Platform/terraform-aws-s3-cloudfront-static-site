@@ -14,14 +14,7 @@ module "cdn" {
   origin_access_identities      = var.origin_access_identities
 
   create_origin_access_control = var.create_origin_access_control
-  origin_access_control = merge({
-    s3 = {
-      description      = "Cloudfront origin access control",
-      origin_type      = "s3",
-      signing_behavior = "always",
-      signing_protocol = "sigv4"
-    }
-  }, var.origin_access_control)
+  origin_access_control        = var.origin_access_control
 
   origin = merge({
     origin_access_control = {
