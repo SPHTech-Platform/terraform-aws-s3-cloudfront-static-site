@@ -3,7 +3,7 @@ module "cdn" {
   source  = "terraform-aws-modules/cloudfront/aws"
   version = "~> 3.2.1"
 
-  aliases = [for domain in var.domains : domain.domain]
+  aliases = concat([for domain in var.domains : domain.domain], var.additional_aliases)
 
   comment             = "Distribution for static website"
   is_ipv6_enabled     = true
@@ -14,14 +14,7 @@ module "cdn" {
   origin_access_identities      = var.origin_access_identities
 
   create_origin_access_control = var.create_origin_access_control
-  origin_access_control = merge({
-    s3 = {
-      description      = "Cloudfront origin access control",
-      origin_type      = "s3",
-      signing_behavior = "always",
-      signing_protocol = "sigv4"
-    }
-  }, var.origin_access_control)
+  origin_access_control        = var.origin_access_control
 
   origin = merge({
     origin_access_control = {
@@ -36,7 +29,7 @@ module "cdn" {
   }, var.origin)
 
   default_cache_behavior = merge({
-    target_origin_id       = "origin_access_identity" # key in `origin` above
+    target_origin_id       = "origin_access_control" # key in `OAC` above
     viewer_protocol_policy = "redirect-to-https"
 
     default_ttl = 360

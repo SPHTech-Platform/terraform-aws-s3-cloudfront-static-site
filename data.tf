@@ -2,11 +2,19 @@ data "aws_region" "current" {}
 
 data "aws_iam_policy_document" "s3_policy" {
   statement {
-    actions   = ["s3:GetObject"]
-    resources = ["${module.s3.s3_bucket_arn}/*"]
+    actions = ["s3:GetObject"]
+    resources = [
+      "${module.s3.s3_bucket_arn}",
+      "${module.s3.s3_bucket_arn}/*",
+    ]
     principals {
-      type        = "AWS"
-      identifiers = module.cdn.cloudfront_origin_access_identity_iam_arns
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn"
+      values   = ["${module.cdn.cloudfront_distribution_arn}"]
     }
   }
   depends_on = [

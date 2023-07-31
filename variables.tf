@@ -145,7 +145,14 @@ variable "origin_access_control" {
     signing_behavior = string
     signing_protocol = string
   }))
-  default = {}
+  default = {
+    s3 = {
+      description      = "Cloudfront origin access control",
+      origin_type      = "s3",
+      signing_behavior = "always",
+      signing_protocol = "sigv4"
+    }
+  }
 }
 
 variable "origin" {
@@ -158,6 +165,12 @@ variable "origin_path" {
   description = "Origin path to a specific directory in s3"
   type        = string
   default     = ""
+}
+
+variable "additional_aliases" {
+  description = "cloudfront additional aliases"
+  type        = list(string)
+  default     = []
 }
 
 variable "default_cache_behavior" {
