@@ -1,5 +1,5 @@
 locals {
-  acm_domains = [for domain in var.domains : domain if domain.include_in_acm]
+  acm_domains = [for obj in var.domains : obj.domain if obj.include_in_acm]
 }
 
 module "acm" {
