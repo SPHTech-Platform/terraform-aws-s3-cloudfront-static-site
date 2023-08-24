@@ -16,6 +16,6 @@ module "acm" {
 
   key_algorithm = var.acm_key_algorithm
 
-  domain_name               = local.acm_domains[0].domain
+  domain_name               = local.acm_domains[0]
   subject_alternative_names = slice(local.acm_domains, 1, length(local.acm_domains))
 }
