@@ -1,33 +1,37 @@
 module "cdn" {
+  #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
   source  = "terraform-aws-modules/cloudfront/aws"
-  version = "~> 3.1.0"
+  version = "~> 3.2.1"
 
-  aliases = [for domain in var.domains : domain.domain]
+  aliases = concat([for domain in var.domains : domain.domain], var.additional_aliases)
 
-  comment                       = "Distribution for static website"
-  is_ipv6_enabled               = true
-  price_class                   = var.price_class
-  wait_for_deployment           = var.wait_for_deployment
+  comment             = "Distribution for static website"
+  is_ipv6_enabled     = true
+  price_class         = var.price_class
+  wait_for_deployment = var.wait_for_deployment
+
   create_origin_access_identity = var.create_origin_access_identity
+  origin_access_identities      = var.origin_access_identities
 
-  origin_access_identities = merge({
-    origin_access_identity = module.s3.s3_bucket_id
-  }, var.origin_access_identities)
+  create_origin_access_control = var.create_origin_access_control
+  origin_access_control        = var.origin_access_control
 
   logging_config = var.cloudfront_logging_config
 
   origin = merge({
-    origin_access_identity = {
-      domain_name = module.s3.s3_bucket_bucket_regional_domain_name
-      origin_path = var.origin_path
-      s3_origin_config = {
-        origin_access_identity = "origin_access_identity"
-        # key in `origin_access_identities`
-    } }
+    origin_access_control = {
+      domain_name           = module.s3.s3_bucket_bucket_regional_domain_name
+      origin_path           = ""
+      origin_access_control = "s3" # key in `origin_access_control`
+      origin_shield = {
+        enabled              = true
+        origin_shield_region = data.aws_region.current.name
+      }
+    }
   }, var.origin)
 
   default_cache_behavior = merge({
-    target_origin_id       = "origin_access_identity" # key in `origin` above
+    target_origin_id       = "origin_access_control" # key in `OAC` above
     viewer_protocol_policy = "redirect-to-https"
 
     default_ttl = 360

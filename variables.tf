@@ -1,3 +1,9 @@
+variable "create_bucket" {
+  description = "Whether to create S3 bucket, default to true"
+  type        = bool
+  default     = true
+}
+
 variable "bucket_name" {
   description = "bucket name"
   type        = string
@@ -104,7 +110,7 @@ variable "wait_for_deployment" {
 variable "create_origin_access_identity" {
   description = "Whether Amazon S3 should restrict public bucket policies for this bucket."
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "ordered_cache_behavior" {
@@ -131,6 +137,30 @@ variable "origin_access_identities" {
   default     = {}
 }
 
+variable "create_origin_access_control" {
+  description = "Controls if CloudFront origin access control should be created"
+  type        = bool
+  default     = true
+}
+
+variable "origin_access_control" {
+  description = "Map of CloudFront origin access control"
+  type = map(object({
+    description      = string
+    origin_type      = string
+    signing_behavior = string
+    signing_protocol = string
+  }))
+  default = {
+    s3 = {
+      description      = "Cloudfront origin access control",
+      origin_type      = "s3",
+      signing_behavior = "always",
+      signing_protocol = "sigv4"
+    }
+  }
+}
+
 variable "origin" {
   description = "One or more origins for this distribution (multiples allowed)."
   type        = any
@@ -141,6 +171,12 @@ variable "origin_path" {
   description = "Origin path to a specific directory in s3"
   type        = string
   default     = ""
+}
+
+variable "additional_aliases" {
+  description = "cloudfront additional aliases"
+  type        = list(string)
+  default     = []
 }
 
 variable "default_cache_behavior" {
@@ -185,6 +221,12 @@ variable "certificate_settings" {
     ssl_support_method       = "sni-only"
     minimum_protocol_version = "TLSv1.2_2021"
   }
+}
+
+variable "create_certificate" {
+  description = "Create ACM certificate"
+  type        = bool
+  default     = true
 }
 
 variable "domains" {

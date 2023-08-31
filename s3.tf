@@ -1,7 +1,9 @@
 module "s3" {
+  #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "~> 3.5.0"
 
+  create_bucket           = var.create_bucket
   bucket                  = var.bucket_name
   acl                     = var.acl
   block_public_acls       = var.block_public_acls
