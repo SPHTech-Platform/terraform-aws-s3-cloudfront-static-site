@@ -125,6 +125,12 @@ variable "price_class" {
   default     = "PriceClass_All"
 }
 
+variable "cloudfront_logging_config" {
+  description = "The logging configuration that controls how logs are written to your distribution"
+  type        = map(string)
+  default     = {}
+}
+
 variable "origin_access_identities" {
   description = "Map of CloudFront origin access identities (value as a comment)"
   type        = map(string)

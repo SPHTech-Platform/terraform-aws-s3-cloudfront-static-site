@@ -16,6 +16,8 @@ module "cdn" {
   create_origin_access_control = var.create_origin_access_control
   origin_access_control        = var.origin_access_control
 
+  logging_config = var.cloudfront_logging_config
+
   origin = merge({
     origin_access_control = {
       domain_name           = module.s3.s3_bucket_bucket_regional_domain_name
