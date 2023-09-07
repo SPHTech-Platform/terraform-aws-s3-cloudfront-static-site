@@ -264,3 +264,9 @@ variable "override_default_index_function_code" {
   type        = string
   default     = ""
 }
+
+variable "prefix" {
+  description = "If required to add prefix to the domain in cloudfront alternate domain names"
+  type        = string
+  default     = ""
+}
