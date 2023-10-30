@@ -185,6 +185,12 @@ variable "additional_aliases" {
   default     = []
 }
 
+variable "tags" {
+  description = "Tags to be associated with the cloudfront distribution"
+  type        = map(string)
+  default     = {}
+}
+
 variable "default_cache_behavior" {
   description = "The default cache behavior for this distribution"
   type        = any

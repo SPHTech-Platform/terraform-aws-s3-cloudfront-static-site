@@ -70,6 +70,8 @@ module "cdn" {
     var.certificate_settings,
   ) : {}
 
+  tags = var.tags
+
   web_acl_id = var.web_acl_id
 }
 
