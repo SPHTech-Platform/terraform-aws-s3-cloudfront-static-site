@@ -3,6 +3,8 @@ module "cdn" {
   source  = "terraform-aws-modules/cloudfront/aws"
   version = "~> 3.2.1"
 
+  create_distribution = var.create_distribution
+
   aliases = concat([for domain in var.domains : var.prefix != "" ? "${var.prefix}${domain.domain}" : domain.domain], var.additional_aliases)
 
   comment             = "Distribution for static website"
@@ -67,6 +69,8 @@ module "cdn" {
     },
     var.certificate_settings,
   ) : {}
+
+  tags = var.tags
 
   web_acl_id = var.web_acl_id
 }
