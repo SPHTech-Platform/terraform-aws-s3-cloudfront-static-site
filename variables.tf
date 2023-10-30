@@ -107,6 +107,12 @@ variable "wait_for_deployment" {
   default     = false
 }
 
+variable "create_distribution" {
+  description = "Whether to create distribution"
+  type        = bool
+  default     = true
+}
+
 variable "create_origin_access_identity" {
   description = "Whether Amazon S3 should restrict public bucket policies for this bucket."
   type        = bool
