@@ -131,6 +131,12 @@ variable "price_class" {
   default     = "PriceClass_All"
 }
 
+variable "http_version" {
+  description = "The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3, and http3. The default is http3."
+  type        = string
+  default     = "http3"
+}
+
 variable "cloudfront_logging_config" {
   description = "The logging configuration that controls how logs are written to your distribution"
   type        = map(string)

@@ -11,6 +11,7 @@ module "cdn" {
   is_ipv6_enabled     = true
   price_class         = var.price_class
   wait_for_deployment = var.wait_for_deployment
+  http_version        = var.http_version
 
   create_origin_access_identity = var.create_origin_access_identity
   origin_access_identities      = var.origin_access_identities
