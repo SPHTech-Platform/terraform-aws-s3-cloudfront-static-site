@@ -137,7 +137,6 @@ variable "http_version" {
   default     = "http3"
 }
 
-
 variable "cloudfront_logging_config" {
   description = "The logging configuration that controls how logs are written to your distribution"
   type        = map(string)
