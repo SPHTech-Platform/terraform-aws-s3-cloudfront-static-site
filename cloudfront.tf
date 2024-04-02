@@ -25,7 +25,7 @@ module "cdn" {
     origin_access_control = {
       domain_name           = module.s3.s3_bucket_bucket_regional_domain_name
       origin_path           = ""
-      origin_access_control = "s3" # key in `origin_access_control`
+      origin_access_control = var.s3_origin_access_control_key # key in `origin_access_control`
       origin_shield = {
         enabled              = true
         origin_shield_region = data.aws_region.current.name
