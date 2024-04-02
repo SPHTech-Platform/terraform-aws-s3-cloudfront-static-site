@@ -177,7 +177,6 @@ variable "s3_origin_access_control_key" {
   description = "Key in `origin_access_control` to use for S3 origin access control"
   type        = string
   default     = "s3"
-
 }
 
 variable "origin" {
