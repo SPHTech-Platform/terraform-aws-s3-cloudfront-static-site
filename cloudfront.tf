@@ -82,4 +82,3 @@ resource "aws_cloudfront_function" "viewer_request" {
   publish = true
   code    = var.override_default_index_function_code == "" ? templatefile("${path.module}/templates/viewer-request-default.js", { default_root_object = var.default_root_object }) : var.override_default_index_function_code
 }
-
