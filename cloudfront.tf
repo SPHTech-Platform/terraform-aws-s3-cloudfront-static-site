@@ -48,7 +48,13 @@ module "cdn" {
     origin_request_policy_id   = data.aws_cloudfront_origin_request_policy.this.id
     cache_policy_id            = data.aws_cloudfront_cache_policy.this.id
 
-  }, locals.function_association, var.default_cache_behavior)
+    function_association = {
+      viewer-request = {
+        function_arn = aws_cloudfront_function.viewer_request.arn
+      }
+    }
+
+  }, var.default_cache_behavior)
 
   ordered_cache_behavior = var.ordered_cache_behavior
   default_root_object    = var.default_root_object
@@ -71,7 +77,7 @@ module "cdn" {
 }
 
 resource "aws_cloudfront_function" "viewer_request" {
-  count   = var.associate_function ? 1 : 0
+  count   = var.create_associate_function ? 1 : 0
   name    = var.default_index_function_name
   runtime = "cloudfront-js-1.0"
   publish = true

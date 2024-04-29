@@ -283,7 +283,7 @@ variable "web_acl_id" {
   default     = ""
 }
 
-variable "associate_function" {
+variable "create_associate_function" {
   description = "If the CloudFront function should be associated with the default cache behavior."
   type        = bool
   default     = false
