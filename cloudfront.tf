@@ -62,7 +62,10 @@ module "cdn" {
 
   viewer_certificate = length(local.acm_domains) > 0 ? merge(
     {
-      acm_certificate_arn = module.acm.acm_certificate_arn
+      acm_certificate_arn = coalesce(
+        module.acm.acm_certificate_arn,
+        var.existing_acm_certificate_arn
+      )
     },
     var.certificate_settings,
   ) : {}

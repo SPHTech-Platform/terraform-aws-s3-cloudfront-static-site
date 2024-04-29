@@ -253,6 +253,12 @@ variable "create_certificate" {
   default     = true
 }
 
+variable "existing_acm_certificate_arn" {
+  description = "Existing ACM certificate"
+  type        = string
+  default     = ""
+}
+
 variable "domains" {
   description = "Domains or FQDNs to update DNS records and create ACM certificates"
   type = map(object({ # Key is arbitrary and not used
