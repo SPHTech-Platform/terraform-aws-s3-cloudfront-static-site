@@ -48,7 +48,7 @@ module "cdn" {
     origin_request_policy_id   = data.aws_cloudfront_origin_request_policy.this.id
     cache_policy_id            = data.aws_cloudfront_cache_policy.this.id
 
-  }, locals.default_function_association, var.default_cache_behavior)
+  }, locals.function_association, var.default_cache_behavior)
 
   ordered_cache_behavior = var.ordered_cache_behavior
   default_root_object    = var.default_root_object
