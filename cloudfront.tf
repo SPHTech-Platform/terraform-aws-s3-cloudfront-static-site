@@ -37,10 +37,6 @@ module "cdn" {
     target_origin_id       = "origin_access_control" # key in `OAC` above
     viewer_protocol_policy = "redirect-to-https"
 
-    default_ttl = 360
-    min_ttl     = 300
-    max_ttl     = 600
-
     allowed_methods = ["GET", "HEAD"]
     cached_methods  = ["GET", "HEAD"]
     compress        = true
@@ -66,7 +62,10 @@ module "cdn" {
 
   viewer_certificate = length(local.acm_domains) > 0 ? merge(
     {
-      acm_certificate_arn = module.acm.acm_certificate_arn
+      acm_certificate_arn = coalesce(
+        module.acm.acm_certificate_arn,
+        var.existing_acm_certificate_arn
+      )
     },
     var.certificate_settings,
   ) : {}
