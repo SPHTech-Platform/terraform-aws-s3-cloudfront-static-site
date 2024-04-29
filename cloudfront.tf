@@ -50,7 +50,7 @@ module "cdn" {
 
     function_association = {
       viewer-request = {
-        function_arn = aws_cloudfront_function.viewer_request.arn
+        function_arn = aws_cloudfront_function.viewer_request[0].arn
       }
     }
 
