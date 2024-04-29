@@ -283,6 +283,12 @@ variable "web_acl_id" {
   default     = ""
 }
 
+variable "associate_function" {
+  description = "If the CloudFront function should be associated with the default cache behavior."
+  type        = bool
+  default     = false
+}
+
 variable "default_index_function_name" {
   description = "Name of the CloudFront Function to create for index page redirection"
   type        = string

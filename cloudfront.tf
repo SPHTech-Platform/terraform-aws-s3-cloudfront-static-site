@@ -71,8 +71,10 @@ module "cdn" {
 }
 
 resource "aws_cloudfront_function" "viewer_request" {
+  count   = var.associate_function ? 1 : 0
   name    = var.default_index_function_name
   runtime = "cloudfront-js-1.0"
   publish = true
   code    = var.override_default_index_function_code == "" ? templatefile("${path.module}/templates/viewer-request-default.js", { default_root_object = var.default_root_object }) : var.override_default_index_function_code
 }
+
