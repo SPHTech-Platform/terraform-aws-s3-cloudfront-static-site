@@ -1,6 +1,6 @@
 locals {
   acm_domains  = [for domain in var.domains : domain if domain.include_in_acm]
-  domain_parts = split(".", local.acm_domains[0].domain)
+  domain_parts = length(local.acm_domains) > 0 ? split(".", local.acm_domains[0].domain) : []
 }
 
 module "acm" {
@@ -18,6 +18,6 @@ module "acm" {
 
   key_algorithm = var.acm_key_algorithm
 
-  domain_name               = local.acm_domains[0].domain
+  domain_name               = length(local.acm_domains) > 0 ? local.acm_domains[0].domain : ""
   subject_alternative_names = length(local.acm_domains) > 0 ? concat([format("*.%s", join(".", slice(local.domain_parts, 0, length(local.domain_parts))))]) : []
 }
