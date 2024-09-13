@@ -8,6 +8,10 @@ module "acm" {
   source  = "terraform-aws-modules/acm/aws"
   version = "~> 4.3.0"
 
+  providers = {
+    aws = aws.us-east-1
+  }
+
   create_certificate     = var.create_certificate
   create_route53_records = false
   wait_for_validation    = false
