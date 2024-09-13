@@ -49,8 +49,9 @@ module "cdn" {
     cache_policy_id            = data.aws_cloudfront_cache_policy.this.id
 
     function_association = var.create_associate_function ? [{
-      event_type   = "viewer-request"
-      function_arn = aws_cloudfront_function.viewer_request[0].arn
+      viewer-request = {
+        function_arn = aws_cloudfront_function.viewer_request[0].arn
+      }
     }] : []
 
   }, var.default_cache_behavior)
