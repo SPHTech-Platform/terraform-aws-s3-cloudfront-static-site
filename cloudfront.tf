@@ -48,11 +48,11 @@ module "cdn" {
     origin_request_policy_id   = data.aws_cloudfront_origin_request_policy.this.id
     cache_policy_id            = data.aws_cloudfront_cache_policy.this.id
 
-    function_association = var.create_associate_function ? [{
+    function_association = var.create_associate_function ? {
       viewer-request = {
         function_arn = aws_cloudfront_function.viewer_request[0].arn
       }
-    }] : []
+    } : {}
 
   }, var.default_cache_behavior)
 
