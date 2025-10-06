@@ -10,6 +10,12 @@ variable "bucket_name" {
   default     = ""
 }
 
+variable "region" {
+  description = "Region where the resources will be managed. Default to region set in the provider configuration"
+  type        = string
+  default     = null
+}
+
 variable "acl" {
   description = "Private or Public ACL"
   type        = string

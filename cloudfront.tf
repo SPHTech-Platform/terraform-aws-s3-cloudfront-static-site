@@ -1,7 +1,7 @@
 module "cdn" {
   #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
   source  = "terraform-aws-modules/cloudfront/aws"
-  version = "~> 3.2.1"
+  version = "~> 5.0.0"
 
   create_distribution = var.create_distribution
 
