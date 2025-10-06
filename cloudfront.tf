@@ -28,7 +28,7 @@ module "cdn" {
       origin_access_control = var.s3_origin_access_control_key # key in `origin_access_control`
       origin_shield = {
         enabled              = true
-        origin_shield_region = data.aws_region.current.name
+        origin_shield_region = data.aws_region.current.region
       }
     }
   }, var.origin)
