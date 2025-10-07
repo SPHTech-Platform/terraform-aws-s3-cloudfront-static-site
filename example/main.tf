@@ -7,6 +7,8 @@ module "s3_test_static" {
   bucket_name = "static-site-testing-tfmodule"
   policy      = data.aws_iam_policy_document.s3_policy_additional.json
 
+  region = "ap-southeast-1"
+
   domains = {
     default_domain = {
       dns_zone_id         = ""
