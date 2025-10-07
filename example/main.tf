@@ -3,9 +3,6 @@
 #########
 module "s3_test_static" {
   source = "../"
-  providers = {
-    aws.us-east-1 = aws.us-east-1
-  }
 
   bucket_name = "static-site-testing-tfmodule"
   policy      = data.aws_iam_policy_document.s3_policy_additional.json

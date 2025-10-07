@@ -12,15 +12,15 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 5.0.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.15.0 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_acm"></a> [acm](#module\_acm) | terraform-aws-modules/acm/aws | ~> 4.3.0 |
-| <a name="module_cdn"></a> [cdn](#module\_cdn) | terraform-aws-modules/cloudfront/aws | ~> 3.2.1 |
-| <a name="module_s3"></a> [s3](#module\_s3) | terraform-aws-modules/s3-bucket/aws | ~> 4.1 |
+| <a name="module_acm"></a> [acm](#module\_acm) | terraform-aws-modules/acm/aws | ~> 6.0.0 |
+| <a name="module_cdn"></a> [cdn](#module\_cdn) | terraform-aws-modules/cloudfront/aws | ~> 5.0.0 |
+| <a name="module_s3"></a> [s3](#module\_s3) | terraform-aws-modules/s3-bucket/aws | ~> 5.0 |
 
 ## Resources
 
@@ -48,20 +48,20 @@
 | <a name="input_block_public_acls"></a> [block\_public\_acls](#input\_block\_public\_acls) | Whether Amazon S3 should block public ACLs for this bucket. | `bool` | `true` | no |
 | <a name="input_block_public_policy"></a> [block\_public\_policy](#input\_block\_public\_policy) | Whether Amazon S3 should block public bucket policies for this bucket. | `bool` | `true` | no |
 | <a name="input_bucket_name"></a> [bucket\_name](#input\_bucket\_name) | bucket name | `string` | `""` | no |
-| <a name="input_certificate_settings"></a> [certificate\_settings](#input\_certificate\_settings) | CloudFront certificate settings | `any` | <pre>{<br>  "minimum_protocol_version": "TLSv1.2_2021",<br>  "ssl_support_method": "sni-only"<br>}</pre> | no |
+| <a name="input_certificate_settings"></a> [certificate\_settings](#input\_certificate\_settings) | CloudFront certificate settings | `any` | <pre>{<br/>  "minimum_protocol_version": "TLSv1.2_2021",<br/>  "ssl_support_method": "sni-only"<br/>}</pre> | no |
 | <a name="input_cloudfront_logging_config"></a> [cloudfront\_logging\_config](#input\_cloudfront\_logging\_config) | The logging configuration that controls how logs are written to your distribution | `map(string)` | `{}` | no |
-| <a name="input_cors_rule"></a> [cors\_rule](#input\_cors\_rule) | List of maps containing rules for Cross-Origin Resource Sharing for S3 bucket. | `any` | <pre>{<br>  "cors_rule": {<br>    "allowed_headers": [<br>      "*"<br>    ],<br>    "allowed_methods": [<br>      "PUT",<br>      "POST",<br>      "GET",<br>      "DELETE"<br>    ],<br>    "allowed_origins": [<br>      "*"<br>    ],<br>    "expose_headers": [<br>      "ETag"<br>    ],<br>    "max_age_seconds": 3000<br>  }<br>}</pre> | no |
+| <a name="input_cors_rule"></a> [cors\_rule](#input\_cors\_rule) | List of maps containing rules for Cross-Origin Resource Sharing for S3 bucket. | `any` | <pre>{<br/>  "cors_rule": {<br/>    "allowed_headers": [<br/>      "*"<br/>    ],<br/>    "allowed_methods": [<br/>      "PUT",<br/>      "POST",<br/>      "GET",<br/>      "DELETE"<br/>    ],<br/>    "allowed_origins": [<br/>      "*"<br/>    ],<br/>    "expose_headers": [<br/>      "ETag"<br/>    ],<br/>    "max_age_seconds": 3000<br/>  }<br/>}</pre> | no |
 | <a name="input_create_associate_function"></a> [create\_associate\_function](#input\_create\_associate\_function) | If the CloudFront function should be associated with the default cache behavior. | `bool` | `false` | no |
 | <a name="input_create_bucket"></a> [create\_bucket](#input\_create\_bucket) | Whether to create S3 bucket, default to true | `bool` | `true` | no |
 | <a name="input_create_certificate"></a> [create\_certificate](#input\_create\_certificate) | Create ACM certificate | `bool` | `true` | no |
 | <a name="input_create_distribution"></a> [create\_distribution](#input\_create\_distribution) | Whether to create distribution | `bool` | `true` | no |
 | <a name="input_create_origin_access_control"></a> [create\_origin\_access\_control](#input\_create\_origin\_access\_control) | Controls if CloudFront origin access control should be created | `bool` | `true` | no |
 | <a name="input_create_origin_access_identity"></a> [create\_origin\_access\_identity](#input\_create\_origin\_access\_identity) | Whether Amazon S3 should restrict public bucket policies for this bucket. | `bool` | `false` | no |
-| <a name="input_custom_error_response"></a> [custom\_error\_response](#input\_custom\_error\_response) | Custom error response settings, if any | `list(any)` | <pre>[<br>  {<br>    "error_code": 404,<br>    "response_code": 404,<br>    "response_page_path": "/errors/404.html"<br>  },<br>  {<br>    "error_code": 403,<br>    "response_code": 403,<br>    "response_page_path": "/errors/403.html"<br>  }<br>]</pre> | no |
+| <a name="input_custom_error_response"></a> [custom\_error\_response](#input\_custom\_error\_response) | Custom error response settings, if any | `list(any)` | <pre>[<br/>  {<br/>    "error_code": 404,<br/>    "response_code": 404,<br/>    "response_page_path": "/errors/404.html"<br/>  },<br/>  {<br/>    "error_code": 403,<br/>    "response_code": 403,<br/>    "response_page_path": "/errors/403.html"<br/>  }<br/>]</pre> | no |
 | <a name="input_default_cache_behavior"></a> [default\_cache\_behavior](#input\_default\_cache\_behavior) | The default cache behavior for this distribution | `any` | `{}` | no |
 | <a name="input_default_index_function_name"></a> [default\_index\_function\_name](#input\_default\_index\_function\_name) | Name of the CloudFront Function to create for index page redirection | `string` | `"default_viewer_request"` | no |
 | <a name="input_default_root_object"></a> [default\_root\_object](#input\_default\_root\_object) | Default root object | `string` | `"index.html"` | no |
-| <a name="input_domains"></a> [domains](#input\_domains) | Domains or FQDNs to update DNS records and create ACM certificates | <pre>map(object({ # Key is arbitrary and not used<br>    dns_zone_id         = optional(string)<br>    domain              = string<br>    create_alias_record = optional(bool, true)<br>    include_in_acm      = optional(bool, false)<br>    create_acm_record   = optional(bool, true)<br>  }))</pre> | `{}` | no |
+| <a name="input_domains"></a> [domains](#input\_domains) | Domains or FQDNs to update DNS records and create ACM certificates | <pre>map(object({ # Key is arbitrary and not used<br/>    dns_zone_id         = optional(string)<br/>    domain              = string<br/>    create_alias_record = optional(bool, true)<br/>    include_in_acm      = optional(bool, false)<br/>    create_acm_record   = optional(bool, true)<br/>  }))</pre> | `{}` | no |
 | <a name="input_existing_acm_certificate_arn"></a> [existing\_acm\_certificate\_arn](#input\_existing\_acm\_certificate\_arn) | Existing ACM certificate | `string` | `""` | no |
 | <a name="input_geo_restriction"></a> [geo\_restriction](#input\_geo\_restriction) | Geo-restriction settings, if any | `any` | `{}` | no |
 | <a name="input_http_version"></a> [http\_version](#input\_http\_version) | The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3, and http3. The default is http3. | `string` | `"http3"` | no |
@@ -70,21 +70,22 @@
 | <a name="input_logging"></a> [logging](#input\_logging) | Map containing access bucket logging configuration. | `map(string)` | `{}` | no |
 | <a name="input_ordered_cache_behavior"></a> [ordered\_cache\_behavior](#input\_ordered\_cache\_behavior) | An ordered list of cache behaviors resource for this distribution. List from top to bottom in order of precedence. The topmost cache behavior will have precedence 0. | `any` | `[]` | no |
 | <a name="input_origin"></a> [origin](#input\_origin) | One or more origins for this distribution (multiples allowed). | `any` | `{}` | no |
-| <a name="input_origin_access_control"></a> [origin\_access\_control](#input\_origin\_access\_control) | Map of CloudFront origin access control | <pre>map(object({<br>    description      = string<br>    origin_type      = string<br>    signing_behavior = string<br>    signing_protocol = string<br>  }))</pre> | <pre>{<br>  "s3": {<br>    "description": "Cloudfront origin access control",<br>    "origin_type": "s3",<br>    "signing_behavior": "always",<br>    "signing_protocol": "sigv4"<br>  }<br>}</pre> | no |
+| <a name="input_origin_access_control"></a> [origin\_access\_control](#input\_origin\_access\_control) | Map of CloudFront origin access control | <pre>map(object({<br/>    description      = string<br/>    origin_type      = string<br/>    signing_behavior = string<br/>    signing_protocol = string<br/>  }))</pre> | <pre>{<br/>  "s3": {<br/>    "description": "Cloudfront origin access control",<br/>    "origin_type": "s3",<br/>    "signing_behavior": "always",<br/>    "signing_protocol": "sigv4"<br/>  }<br/>}</pre> | no |
 | <a name="input_origin_access_identities"></a> [origin\_access\_identities](#input\_origin\_access\_identities) | Map of CloudFront origin access identities (value as a comment) | `map(string)` | `{}` | no |
 | <a name="input_origin_path"></a> [origin\_path](#input\_origin\_path) | Origin path to a specific directory in s3 | `string` | `""` | no |
 | <a name="input_override_default_index_function_code"></a> [override\_default\_index\_function\_code](#input\_override\_default\_index\_function\_code) | Function code to override default index viewer request function. Useful when you need to add more functianlity in the viewer request function. | `string` | `""` | no |
 | <a name="input_policy"></a> [policy](#input\_policy) | A valid bucket policy JSON document (Optional) | `string` | `""` | no |
 | <a name="input_prefix"></a> [prefix](#input\_prefix) | If required to add prefix to the domain in cloudfront alternate domain names | `string` | `""` | no |
 | <a name="input_price_class"></a> [price\_class](#input\_price\_class) | The price class for this distribution. One of PriceClass\_All, PriceClass\_200, PriceClass\_100 | `string` | `"PriceClass_All"` | no |
+| <a name="input_region"></a> [region](#input\_region) | Region where the resources will be managed. Default to region set in the provider configuration | `string` | `null` | no |
 | <a name="input_restrict_public_buckets"></a> [restrict\_public\_buckets](#input\_restrict\_public\_buckets) | Whether Amazon S3 should restrict public bucket policies for this bucket. | `bool` | `true` | no |
 | <a name="input_s3_origin_access_control_key"></a> [s3\_origin\_access\_control\_key](#input\_s3\_origin\_access\_control\_key) | Key in `origin_access_control` to use for S3 origin access control | `string` | `"s3"` | no |
 | <a name="input_server_side_encryption_configuration"></a> [server\_side\_encryption\_configuration](#input\_server\_side\_encryption\_configuration) | Map containing server-side encryption configuration. | `any` | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to be associated with the cloudfront distribution | `map(string)` | `{}` | no |
-| <a name="input_versioning"></a> [versioning](#input\_versioning) | Map containing versioning configuration. | `map(string)` | <pre>{<br>  "enabled": true<br>}</pre> | no |
+| <a name="input_versioning"></a> [versioning](#input\_versioning) | Map containing versioning configuration. | `map(string)` | <pre>{<br/>  "enabled": true<br/>}</pre> | no |
 | <a name="input_wait_for_deployment"></a> [wait\_for\_deployment](#input\_wait\_for\_deployment) | Whether Amazon S3 should restrict public bucket policies for this bucket. | `bool` | `false` | no |
 | <a name="input_web_acl_id"></a> [web\_acl\_id](#input\_web\_acl\_id) | A unique identifier that specifies the AWS WAF web ACL, if any, to associate with this distribution. To specify a web ACL created using the latest version of AWS WAF (WAFv2), use the ACL ARN, for example aws\_wafv2\_web\_acl.example.arn. To specify a web ACL created using AWS WAF Classic, use the ACL ID, for example aws\_waf\_web\_acl.example.id. The WAF Web ACL must exist in the WAF Global (CloudFront) region and the credentials configuring this argument must have waf:GetWebACL permissions assigned. | `string` | `""` | no |
-| <a name="input_website"></a> [website](#input\_website) | Map containing static web-site hosting or redirect configuration. | `any` | <pre>{<br>  "error_document": "error.html",<br>  "index_document": "index.html"<br>}</pre> | no |
+| <a name="input_website"></a> [website](#input\_website) | Map containing static web-site hosting or redirect configuration. | `any` | <pre>{<br/>  "error_document": "error.html",<br/>  "index_document": "index.html"<br/>}</pre> | no |
 
 ## Outputs
 

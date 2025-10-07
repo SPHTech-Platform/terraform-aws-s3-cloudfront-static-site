@@ -1,7 +1,7 @@
 module "cdn" {
   #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
   source  = "terraform-aws-modules/cloudfront/aws"
-  version = "~> 3.2.1"
+  version = "~> 5.0.0"
 
   create_distribution = var.create_distribution
 
@@ -28,7 +28,7 @@ module "cdn" {
       origin_access_control = var.s3_origin_access_control_key # key in `origin_access_control`
       origin_shield = {
         enabled              = true
-        origin_shield_region = data.aws_region.current.name
+        origin_shield_region = data.aws_region.current.region
       }
     }
   }, var.origin)
