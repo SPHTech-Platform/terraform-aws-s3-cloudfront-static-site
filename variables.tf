@@ -16,12 +16,6 @@ variable "region" {
   default     = null
 }
 
-variable "s3_region" {
-  description = "Region to manage the s3 bucket in. Default to region set in the provider configuration"
-  type        = string
-  default     = null
-}
-
 variable "acl" {
   description = "Private or Public ACL"
   type        = string
