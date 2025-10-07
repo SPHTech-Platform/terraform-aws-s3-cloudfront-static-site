@@ -8,7 +8,7 @@ module "acm" {
   source  = "terraform-aws-modules/acm/aws"
   version = "~> 6.0.0"
 
-  region = var.region
+  region = "us-east-1"
 
   create_certificate     = var.create_certificate
   create_route53_records = false

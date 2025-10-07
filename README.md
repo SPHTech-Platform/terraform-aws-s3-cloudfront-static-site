@@ -80,6 +80,7 @@
 | <a name="input_region"></a> [region](#input\_region) | Region where the resources will be managed. Default to region set in the provider configuration | `string` | `null` | no |
 | <a name="input_restrict_public_buckets"></a> [restrict\_public\_buckets](#input\_restrict\_public\_buckets) | Whether Amazon S3 should restrict public bucket policies for this bucket. | `bool` | `true` | no |
 | <a name="input_s3_origin_access_control_key"></a> [s3\_origin\_access\_control\_key](#input\_s3\_origin\_access\_control\_key) | Key in `origin_access_control` to use for S3 origin access control | `string` | `"s3"` | no |
+| <a name="input_s3_region"></a> [s3\_region](#input\_s3\_region) | Region to manage the s3 bucket in. Default to region set in the provider configuration | `string` | `null` | no |
 | <a name="input_server_side_encryption_configuration"></a> [server\_side\_encryption\_configuration](#input\_server\_side\_encryption\_configuration) | Map containing server-side encryption configuration. | `any` | `{}` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Tags to be associated with the cloudfront distribution | `map(string)` | `{}` | no |
 | <a name="input_versioning"></a> [versioning](#input\_versioning) | Map containing versioning configuration. | `map(string)` | <pre>{<br/>  "enabled": true<br/>}</pre> | no |
