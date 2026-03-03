@@ -12,7 +12,7 @@
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.15.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.34.0 |
 
 ## Modules
 
@@ -63,6 +63,7 @@
 | <a name="input_default_root_object"></a> [default\_root\_object](#input\_default\_root\_object) | Default root object | `string` | `"index.html"` | no |
 | <a name="input_domains"></a> [domains](#input\_domains) | Domains or FQDNs to update DNS records and create ACM certificates | <pre>map(object({ # Key is arbitrary and not used<br/>    dns_zone_id         = optional(string)<br/>    domain              = string<br/>    create_alias_record = optional(bool, true)<br/>    include_in_acm      = optional(bool, false)<br/>    create_acm_record   = optional(bool, true)<br/>  }))</pre> | `{}` | no |
 | <a name="input_existing_acm_certificate_arn"></a> [existing\_acm\_certificate\_arn](#input\_existing\_acm\_certificate\_arn) | Existing ACM certificate | `string` | `""` | no |
+| <a name="input_force_destroy"></a> [force\_destroy](#input\_force\_destroy) | A boolean that indicates all objects should be deleted from the bucket so that the bucket can be destroyed without error. These objects are not recoverable. | `bool` | `false` | no |
 | <a name="input_geo_restriction"></a> [geo\_restriction](#input\_geo\_restriction) | Geo-restriction settings, if any | `any` | `{}` | no |
 | <a name="input_http_version"></a> [http\_version](#input\_http\_version) | The maximum HTTP version to support on the distribution. Allowed values are http1.1, http2, http2and3, and http3. The default is http3. | `string` | `"http3"` | no |
 | <a name="input_ignore_public_acls"></a> [ignore\_public\_acls](#input\_ignore\_public\_acls) | Whether Amazon S3 should ignore public ACLs for this bucket. | `bool` | `true` | no |

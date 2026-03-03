@@ -20,6 +20,8 @@ module "s3" {
   logging    = var.logging
 
   website = var.website
+
+  force_destroy = var.force_destroy
 }
 
 
