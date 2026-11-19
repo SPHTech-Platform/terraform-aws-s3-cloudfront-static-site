@@ -34,6 +34,12 @@ variable "policy" {
   default     = ""
 }
 
+variable "attach_deny_insecure_transport_policy" {
+  description = "Controls if S3 bucket policy should deny all non-TLS (HTTP) requests. Required for Security Hub control S3.5 / CIS compliance"
+  type        = bool
+  default     = true
+}
+
 variable "block_public_acls" {
   description = "Whether Amazon S3 should block public ACLs for this bucket."
   type        = bool
