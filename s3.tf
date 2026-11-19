@@ -17,7 +17,7 @@ module "s3" {
   lifecycle_rule                       = var.lifecycle_rule
 
   versioning = var.versioning
-  logging    = length(var.logging) > 0 ? var.logging : null
+  logging    = var.logging
 
   website = var.website
 
