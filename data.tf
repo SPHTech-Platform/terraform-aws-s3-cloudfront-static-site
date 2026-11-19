@@ -17,6 +17,30 @@ data "aws_iam_policy_document" "s3_policy" {
       values   = ["${module.cdn.cloudfront_distribution_arn}"]
     }
   }
+
+  dynamic "statement" {
+    for_each = var.attach_deny_insecure_transport_policy ? [1] : []
+
+    content {
+      sid     = "denyInsecureTransport"
+      effect  = "Deny"
+      actions = ["s3:*"]
+      resources = [
+        "${module.s3.s3_bucket_arn}",
+        "${module.s3.s3_bucket_arn}/*",
+      ]
+      principals {
+        type        = "*"
+        identifiers = ["*"]
+      }
+      condition {
+        test     = "Bool"
+        variable = "aws:SecureTransport"
+        values   = ["false"]
+      }
+    }
+  }
+
   depends_on = [
     module.cdn.cloudfront_distribution_id
   ]
