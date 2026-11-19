@@ -1,17 +1,18 @@
-name: terraform-ci
+name: tofu-ci
 on:
   pull_request:
-  push:
-    branches:
-      - main
+  merge_group:
 permissions:
   actions: read
   checks: read
   contents: read
+  id-token: write
   pull-requests: write
   security-events: write
 jobs:
   ci:
-    uses: SPHTech-Platform/reusable-workflows/.github/workflows/terraform.yaml@main
+    uses: SPHTech-Platform/platform-reusable-workflow/.github/workflows/tofu.yaml@4b305eb628231110a11c6bbfcf67940408ae8e40 # v2.2.11
     with:
       upload_sarif: false
+      runner_label: platform-eng-ent-v2-dual
+    secrets: inherit
