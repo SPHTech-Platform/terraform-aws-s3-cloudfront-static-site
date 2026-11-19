@@ -6,7 +6,7 @@ locals {
 module "acm" {
   #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
   source  = "terraform-aws-modules/acm/aws"
-  version = "~> 6.0.0"
+  version = "~> 6.3.0"
 
   region = "us-east-1"
 

@@ -6,21 +6,21 @@
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9 |
-| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 5.0.0 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 6.51 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_aws"></a> [aws](#provider\_aws) | 6.34.0 |
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 6.51 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_acm"></a> [acm](#module\_acm) | terraform-aws-modules/acm/aws | ~> 6.0.0 |
-| <a name="module_cdn"></a> [cdn](#module\_cdn) | terraform-aws-modules/cloudfront/aws | ~> 5.0.0 |
-| <a name="module_s3"></a> [s3](#module\_s3) | terraform-aws-modules/s3-bucket/aws | ~> 5.0 |
+| <a name="module_acm"></a> [acm](#module\_acm) | terraform-aws-modules/acm/aws | ~> 6.3.0 |
+| <a name="module_cdn"></a> [cdn](#module\_cdn) | terraform-aws-modules/cloudfront/aws | ~> 6.8.0 |
+| <a name="module_s3"></a> [s3](#module\_s3) | terraform-aws-modules/s3-bucket/aws | ~> 5.18.0 |
 
 ## Resources
 
@@ -33,6 +33,7 @@
 | [aws_cloudfront_cache_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/cloudfront_cache_policy) | data source |
 | [aws_cloudfront_origin_request_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/cloudfront_origin_request_policy) | data source |
 | [aws_cloudfront_response_headers_policy.this](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/cloudfront_response_headers_policy) | data source |
+| [aws_iam_policy_document.deny_insecure_transport](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.s3_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_iam_policy_document.s3_policy_merge](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) | data source |
 | [aws_region.current](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) | data source |
@@ -44,6 +45,7 @@
 | <a name="input_acl"></a> [acl](#input\_acl) | Private or Public ACL | `string` | `null` | no |
 | <a name="input_acm_key_algorithm"></a> [acm\_key\_algorithm](#input\_acm\_key\_algorithm) | ACM certificate algorithm | `string` | `"EC_prime256v1"` | no |
 | <a name="input_additional_aliases"></a> [additional\_aliases](#input\_additional\_aliases) | cloudfront additional aliases | `list(string)` | `[]` | no |
+| <a name="input_attach_deny_insecure_transport_policy"></a> [attach\_deny\_insecure\_transport\_policy](#input\_attach\_deny\_insecure\_transport\_policy) | Controls if S3 bucket should have a deny non-SSL transport policy attached (CIS / Security Hub S3.5) | `bool` | `true` | no |
 | <a name="input_attach_policy"></a> [attach\_policy](#input\_attach\_policy) | Controls if S3 bucket should have bucket policy attached (set to `true` to use value of `policy` as bucket policy) | `bool` | `true` | no |
 | <a name="input_block_public_acls"></a> [block\_public\_acls](#input\_block\_public\_acls) | Whether Amazon S3 should block public ACLs for this bucket. | `bool` | `true` | no |
 | <a name="input_block_public_policy"></a> [block\_public\_policy](#input\_block\_public\_policy) | Whether Amazon S3 should block public bucket policies for this bucket. | `bool` | `true` | no |
@@ -56,7 +58,6 @@
 | <a name="input_create_certificate"></a> [create\_certificate](#input\_create\_certificate) | Create ACM certificate | `bool` | `true` | no |
 | <a name="input_create_distribution"></a> [create\_distribution](#input\_create\_distribution) | Whether to create distribution | `bool` | `true` | no |
 | <a name="input_create_origin_access_control"></a> [create\_origin\_access\_control](#input\_create\_origin\_access\_control) | Controls if CloudFront origin access control should be created | `bool` | `true` | no |
-| <a name="input_create_origin_access_identity"></a> [create\_origin\_access\_identity](#input\_create\_origin\_access\_identity) | Whether Amazon S3 should restrict public bucket policies for this bucket. | `bool` | `false` | no |
 | <a name="input_custom_error_response"></a> [custom\_error\_response](#input\_custom\_error\_response) | Custom error response settings, if any | `list(any)` | <pre>[<br/>  {<br/>    "error_code": 404,<br/>    "response_code": 404,<br/>    "response_page_path": "/errors/404.html"<br/>  },<br/>  {<br/>    "error_code": 403,<br/>    "response_code": 403,<br/>    "response_page_path": "/errors/403.html"<br/>  }<br/>]</pre> | no |
 | <a name="input_default_cache_behavior"></a> [default\_cache\_behavior](#input\_default\_cache\_behavior) | The default cache behavior for this distribution | `any` | `{}` | no |
 | <a name="input_default_index_function_name"></a> [default\_index\_function\_name](#input\_default\_index\_function\_name) | Name of the CloudFront Function to create for index page redirection | `string` | `"default_viewer_request"` | no |
@@ -72,7 +73,6 @@
 | <a name="input_ordered_cache_behavior"></a> [ordered\_cache\_behavior](#input\_ordered\_cache\_behavior) | An ordered list of cache behaviors resource for this distribution. List from top to bottom in order of precedence. The topmost cache behavior will have precedence 0. | `any` | `[]` | no |
 | <a name="input_origin"></a> [origin](#input\_origin) | One or more origins for this distribution (multiples allowed). | `any` | `{}` | no |
 | <a name="input_origin_access_control"></a> [origin\_access\_control](#input\_origin\_access\_control) | Map of CloudFront origin access control | <pre>map(object({<br/>    description      = string<br/>    origin_type      = string<br/>    signing_behavior = string<br/>    signing_protocol = string<br/>  }))</pre> | <pre>{<br/>  "s3": {<br/>    "description": "Cloudfront origin access control",<br/>    "origin_type": "s3",<br/>    "signing_behavior": "always",<br/>    "signing_protocol": "sigv4"<br/>  }<br/>}</pre> | no |
-| <a name="input_origin_access_identities"></a> [origin\_access\_identities](#input\_origin\_access\_identities) | Map of CloudFront origin access identities (value as a comment) | `map(string)` | `{}` | no |
 | <a name="input_origin_path"></a> [origin\_path](#input\_origin\_path) | Origin path to a specific directory in s3 | `string` | `""` | no |
 | <a name="input_override_default_index_function_code"></a> [override\_default\_index\_function\_code](#input\_override\_default\_index\_function\_code) | Function code to override default index viewer request function. Useful when you need to add more functianlity in the viewer request function. | `string` | `""` | no |
 | <a name="input_policy"></a> [policy](#input\_policy) | A valid bucket policy JSON document (Optional) | `string` | `""` | no |
@@ -97,7 +97,6 @@
 | <a name="output_cloudfront_distribution_domain_name"></a> [cloudfront\_distribution\_domain\_name](#output\_cloudfront\_distribution\_domain\_name) | The domain name corresponding to the distribution. |
 | <a name="output_cloudfront_distribution_hosted_zone_id"></a> [cloudfront\_distribution\_hosted\_zone\_id](#output\_cloudfront\_distribution\_hosted\_zone\_id) | Route53 Zone ID for the Cloudfront Distribution |
 | <a name="output_cloudfront_distribution_id"></a> [cloudfront\_distribution\_id](#output\_cloudfront\_distribution\_id) | The Arn of the cloudfront distribution |
-| <a name="output_cloudfront_origin_access_identity_iam_arns"></a> [cloudfront\_origin\_access\_identity\_iam\_arns](#output\_cloudfront\_origin\_access\_identity\_iam\_arns) | The IAM arns of the origin access identities created |
 | <a name="output_s3_bucket_arn"></a> [s3\_bucket\_arn](#output\_s3\_bucket\_arn) | The ARN of the bucket. Will be of format arn:aws:s3:::bucketname. |
 | <a name="output_s3_bucket_bucket_domain_name"></a> [s3\_bucket\_bucket\_domain\_name](#output\_s3\_bucket\_bucket\_domain\_name) | The bucket domain name. Will be of format bucketname.s3.amazonaws.com. |
 | <a name="output_s3_bucket_bucket_regional_domain_name"></a> [s3\_bucket\_bucket\_regional\_domain\_name](#output\_s3\_bucket\_bucket\_regional\_domain\_name) | The bucket region-specific domain name. The bucket domain name including the region name, please refer here for format. Note: The AWS CloudFront allows specifying S3 region-specific endpoint when creating S3 origin, it will prevent redirect issues from CloudFront to S3 Origin URL. |

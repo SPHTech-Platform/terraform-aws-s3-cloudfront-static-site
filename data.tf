@@ -22,11 +22,35 @@ data "aws_iam_policy_document" "s3_policy" {
   ]
 }
 
+data "aws_iam_policy_document" "deny_insecure_transport" {
+  count = var.attach_deny_insecure_transport_policy ? 1 : 0
+
+  statement {
+    sid     = "denyInsecureTransport"
+    effect  = "Deny"
+    actions = ["s3:*"]
+    resources = [
+      module.s3.s3_bucket_arn,
+      "${module.s3.s3_bucket_arn}/*",
+    ]
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+    condition {
+      test     = "Bool"
+      variable = "aws:SecureTransport"
+      values   = ["false"]
+    }
+  }
+}
+
 data "aws_iam_policy_document" "s3_policy_merge" {
-  source_policy_documents = [
+  source_policy_documents = compact([
     data.aws_iam_policy_document.s3_policy.json,
+    var.attach_deny_insecure_transport_policy ? data.aws_iam_policy_document.deny_insecure_transport[0].json : "",
     var.policy
-  ]
+  ])
 }
 
 data "aws_cloudfront_response_headers_policy" "this" {

@@ -1,18 +1,6 @@
 #################
 # Cloudfront Variables
 #################
-variable "create_origin_access_identity" {
-  description = "Whether Amazon S3 should restrict public bucket policies for this bucket."
-  type        = bool
-  default     = false
-}
-
-variable "origin_access_identities" {
-  description = "Map of CloudFront origin access identities (value as a comment)"
-  type        = map(string)
-  default     = {}
-}
-
 variable "origin" {
   description = "One or more origins for this distribution (multiples allowed)."
   type        = any

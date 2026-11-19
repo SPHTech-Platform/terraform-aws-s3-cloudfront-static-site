@@ -3,12 +3,16 @@
 ###############
 data "aws_iam_policy_document" "s3_policy_additional" {
   statement {
-    actions = ["s3:GetObject"]
-    resources = ["${module.s3_test_static.s3_bucket_arn}/*",
-    "${module.s3_test_static.s3_bucket_arn}"]
+    actions   = ["s3:ListBucket"]
+    resources = [module.s3_test_static.s3_bucket_arn]
     principals {
-      type        = "AWS"
-      identifiers = module.s3_test_static.cloudfront_origin_access_identity_iam_arns
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
+    }
+    condition {
+      test     = "StringEquals"
+      variable = "AWS:SourceArn"
+      values   = [module.s3_test_static.cloudfront_distribution_arn]
     }
   }
 

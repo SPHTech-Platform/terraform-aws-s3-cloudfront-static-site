@@ -34,6 +34,12 @@ variable "policy" {
   default     = ""
 }
 
+variable "attach_deny_insecure_transport_policy" {
+  description = "Controls if S3 bucket should have a deny non-SSL transport policy attached (CIS / Security Hub S3.5)"
+  type        = bool
+  default     = true
+}
+
 variable "block_public_acls" {
   description = "Whether Amazon S3 should block public ACLs for this bucket."
   type        = bool
@@ -125,12 +131,6 @@ variable "create_distribution" {
   default     = true
 }
 
-variable "create_origin_access_identity" {
-  description = "Whether Amazon S3 should restrict public bucket policies for this bucket."
-  type        = bool
-  default     = false
-}
-
 variable "ordered_cache_behavior" {
   description = "An ordered list of cache behaviors resource for this distribution. List from top to bottom in order of precedence. The topmost cache behavior will have precedence 0."
   type        = any
@@ -151,12 +151,6 @@ variable "http_version" {
 
 variable "cloudfront_logging_config" {
   description = "The logging configuration that controls how logs are written to your distribution"
-  type        = map(string)
-  default     = {}
-}
-
-variable "origin_access_identities" {
-  description = "Map of CloudFront origin access identities (value as a comment)"
   type        = map(string)
   default     = {}
 }

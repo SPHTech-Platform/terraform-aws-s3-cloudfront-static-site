@@ -1,7 +1,7 @@
 module "s3" {
   #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
   source  = "terraform-aws-modules/s3-bucket/aws"
-  version = "~> 5.0"
+  version = "~> 5.18.0"
 
   create_bucket           = var.create_bucket
   bucket                  = var.bucket_name
@@ -13,11 +13,11 @@ module "s3" {
   restrict_public_buckets = var.restrict_public_buckets
 
   server_side_encryption_configuration = var.server_side_encryption_configuration
-  cors_rule                            = var.cors_rule
+  cors_rule                            = try(values(var.cors_rule), var.cors_rule) # Accept legacy map of rules as well as a list
   lifecycle_rule                       = var.lifecycle_rule
 
   versioning = var.versioning
-  logging    = var.logging
+  logging    = length(var.logging) > 0 ? var.logging : null
 
   website = var.website
 

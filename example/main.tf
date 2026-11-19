@@ -22,13 +22,12 @@ module "s3_test_static" {
   ordered_cache_behavior = [
     {
       path_pattern           = "/about-us"
-      target_origin_id       = "origin_access_identity"
+      target_origin_id       = "origin_access_control"
       viewer_protocol_policy = "https-only"
 
       allowed_methods = ["GET", "HEAD"]
       cached_methods  = ["GET", "HEAD"]
       compress        = true
-      query_string    = false
 
       #Policy ID for CORS allow all origins with preflight and security headers
       response_headers_policy_id = "eaab4381-ed33-4a86-88ca-d9558dc6cd63"

@@ -1,9 +1,9 @@
 module "cdn" {
   #checkov:skip=CKV_TF_1:Ensure Terraform module sources use a commit hash
   source  = "terraform-aws-modules/cloudfront/aws"
-  version = "~> 5.0.0"
+  version = "~> 6.8.0"
 
-  create_distribution = var.create_distribution
+  create = var.create_distribution
 
   aliases = concat([for domain in var.domains : var.prefix != "" ? "${var.prefix}${domain.domain}" : domain.domain], var.additional_aliases)
 
@@ -13,19 +13,15 @@ module "cdn" {
   wait_for_deployment = var.wait_for_deployment
   http_version        = var.http_version
 
-  create_origin_access_identity = var.create_origin_access_identity
-  origin_access_identities      = var.origin_access_identities
+  origin_access_control = var.create_origin_access_control ? var.origin_access_control : {}
 
-  create_origin_access_control = var.create_origin_access_control
-  origin_access_control        = var.origin_access_control
-
-  logging_config = var.cloudfront_logging_config
+  logging_config = length(var.cloudfront_logging_config) > 0 ? var.cloudfront_logging_config : null
 
   origin = merge({
     origin_access_control = {
-      domain_name           = module.s3.s3_bucket_bucket_regional_domain_name
-      origin_path           = ""
-      origin_access_control = var.s3_origin_access_control_key # key in `origin_access_control`
+      domain_name               = module.s3.s3_bucket_bucket_regional_domain_name
+      origin_path               = ""
+      origin_access_control_key = var.s3_origin_access_control_key # key in `origin_access_control`
       origin_shield = {
         enabled              = true
         origin_shield_region = data.aws_region.current.region
@@ -40,9 +36,6 @@ module "cdn" {
     allowed_methods = ["GET", "HEAD"]
     cached_methods  = ["GET", "HEAD"]
     compress        = true
-    query_string    = false
-
-    use_forwarded_values = false
 
     response_headers_policy_id = data.aws_cloudfront_response_headers_policy.this.id
     origin_request_policy_id   = data.aws_cloudfront_origin_request_policy.this.id
@@ -59,7 +52,10 @@ module "cdn" {
   ordered_cache_behavior = var.ordered_cache_behavior
   default_root_object    = var.default_root_object
   custom_error_response  = var.custom_error_response
-  geo_restriction        = var.geo_restriction
+
+  restrictions = {
+    geo_restriction = merge({ restriction_type = "none" }, var.geo_restriction)
+  }
 
   viewer_certificate = length(local.acm_domains) > 0 ? merge(
     {
@@ -69,7 +65,7 @@ module "cdn" {
       )
     },
     var.certificate_settings,
-  ) : {}
+  ) : { minimum_protocol_version = "TLSv1" } # Default CloudFront certificate only supports TLSv1
 
   tags = var.tags
 
